@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>🐾 Dog Walker Pro Ultra</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════ CSS VARS & THEMES ═══════════════════════════ */
+:root {
+  --amber:#F5A623; --amber-d:#D4891A; --amber-l:#FFE0A0;
+  --brown:#5C3317; --brown-m:#8B5E3C; --brown-l:#C8956A;
+  --cream:#FFF8F0; --cream-d:#FFF0DC;
+  --green:#3DAA6B; --green-d:#2D8050; --green-l:#D4F0E2;
+  --red:#E5453A;   --red-l:#FFE5E3;
+  --blue:#2378D5;  --blue-l:#E3EEFF;
+  --purple:#7C3AED;--purple-l:#EDE9FE;
+  --pink:#E84393;  --pink-l:#FFE8F4;
+
+  --bg:        #FFF8F0;
+  --bg2:       #FFFFFF;
+  --bg3:       #FFF3E2;
+  --surface:   #FFFFFF;
+  --border:    #EDD9C0;
+  --text:      #2D1A0E;
+  --text2:     #6B4226;
+  --text3:     #9E7356;
+  --shadow:    0 4px 24px rgba(92,51,23,.10);
+  --shadow-lg: 0 8px 40px rgba(92,51,23,.16);
+  --radius:    20px;
+  --radius-sm: 12px;
+}
+[data-theme="dark"] {
+  --bg:        #1A1008;
+  --bg2:       #251608;
+  --bg3:       #301E0A;
+  --surface:   #2E1C0C;
+  --border:    #4A2E14;
+  --text:      #FFE8CC;
+  --text2:     #D4A87A;
+  --text3:     #9E7356;
+  --shadow:    0 4px 24px rgba(0,0,0,.40);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,.55);
+  --cream:     #251608;
+  --cream-d:   #1A1008;
+}
+
+/* ═══════════════════════════ RESET & BASE ═══════════════════════════ */
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Nunito',sans-serif;
+  background:var(--bg); color:var(--text);
+  min-height:100vh; overflow-x:hidden;
+  transition:background .3s,color .3s;
+}
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--amber);border-radius:6px;}
+
+/* ═══════════════════════════ HEADER ═══════════════════════════ */
+header{
+  background:linear-gradient(135deg,var(--amber) 0%,var(--amber-d) 100%);
+  padding:0 20px; height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:200;
+  box-shadow:0 3px 16px rgba(92,51,23,.25);
+}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{font-size:2rem;filter:drop-shadow(2px 2px 4px rgba(0,0,0,.2));}
+.logo h1{font-family:'Baloo 2',cursive;color:#fff;font-size:1.45rem;font-weight:800;letter-spacing:.5px;text-shadow:1px 2px 4px rgba(0,0,0,.2);}
+.header-right{display:flex;align-items:center;gap:8px;}
+.hpill{background:rgba(255,255,255,.25);border-radius:30px;padding:5px 12px;color:#fff;font-size:.75rem;font-weight:800;white-space:nowrap;backdrop-filter:blur(4px);}
+.hpill span{display:block;font-size:1rem;line-height:1.1;}
+.theme-btn{background:rgba(255,255,255,.2);border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:1.1rem;color:#fff;transition:.2s;display:flex;align-items:center;justify-content:center;}
+.theme-btn:hover{background:rgba(255,255,255,.35);}
+.notif-btn{position:relative;background:rgba(255,255,255,.2);border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:1.1rem;color:#fff;display:flex;align-items:center;justify-content:center;}
+.notif-badge{position:absolute;top:-2px;right:-2px;background:#E5453A;color:#fff;font-size:.6rem;font-weight:900;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--amber);}
+
+/* ═══════════════════════════ NAV ═══════════════════════════ */
+nav{
+  background:var(--brown);
+  display:flex;overflow-x:auto;scrollbar-width:none;
+  position:sticky;top:64px;z-index:190;
+  box-shadow:0 2px 8px rgba(0,0,0,.2);
+}
+nav::-webkit-scrollbar{display:none;}
+.nav-btn{
+  flex:1;min-width:80px;padding:10px 6px;
+  border:none;background:transparent;cursor:pointer;
+  color:rgba(255,255,255,.55);
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:.72rem;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  transition:.2s;white-space:nowrap;position:relative;
+}
+.nav-btn .ni{font-size:1.3rem;}
+.nav-btn:hover{color:rgba(255,255,255,.85);background:rgba(255,255,255,.06);}
+.nav-btn.active{color:var(--amber-l);background:rgba(255,255,255,.1);}
+.nav-btn.active::after{content:'';position:absolute;bottom:0;left:20%;right:20%;height:3px;background:var(--amber);border-radius:3px 3px 0 0;}
+
+/* ═══════════════════════════ PAGES ═══════════════════════════ */
+.page{display:none;padding:22px 18px 110px;max-width:980px;margin:0 auto;animation:fadeUp .35s ease;}
+.page.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ═══════════════════════════ CARDS ═══════════════════════════ */
+.card{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px;border:1.5px solid var(--border);}
+.card-title{font-family:'Baloo 2',cursive;font-size:1.1rem;color:var(--brown-m);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+[data-theme="dark"] .card-title{color:var(--amber);}
+
+/* ═══════════════════════════ STAT GRID ═══════════════════════════ */
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:18px;}
+@media(min-width:540px){.stat-grid{grid-template-columns:repeat(4,1fr);}}
+.stat-card{border-radius:var(--radius);padding:18px 14px;text-align:center;color:#fff;position:relative;overflow:hidden;cursor:default;}
+.stat-card::before{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;background:rgba(255,255,255,.12);border-radius:50%;}
+.stat-card::after{content:'';position:absolute;bottom:-30px;left:-10px;width:70px;height:70px;background:rgba(255,255,255,.07);border-radius:50%;}
+.sc-amber{background:linear-gradient(135deg,#F5A623,#D4891A);}
+.sc-green{background:linear-gradient(135deg,#3DAA6B,#2D8050);}
+.sc-blue {background:linear-gradient(135deg,#2378D5,#1558B0);}
+.sc-purple{background:linear-gradient(135deg,#7C3AED,#5B21B6);}
+.sc-pink {background:linear-gradient(135deg,#E84393,#C0206A);}
+.sc-teal {background:linear-gradient(135deg,#0EA5A0,#077A76);}
+.snum{font-family:'Baloo 2',cursive;font-size:1.9rem;line-height:1.1;position:relative;z-index:1;}
+.slbl{font-size:.72rem;font-weight:800;opacity:.9;position:relative;z-index:1;}
+
+/* ═══════════════════════════ FORMS ═══════════════════════════ */
+.form-row{display:flex;flex-direction:column;gap:12px;}
+.form-group{display:flex;flex-direction:column;gap:5px;}
+label{font-weight:800;font-size:.82rem;color:var(--text2);}
+input,select,textarea{
+  border:2px solid var(--border);border-radius:10px;
+  padding:10px 13px;font-family:'Nunito',sans-serif;font-size:.93rem;
+  background:var(--bg3);color:var(--text);transition:.2s;width:100%;
+}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--amber);background:var(--bg2);box-shadow:0 0 0 3px rgba(245,166,35,.15);}
+textarea{resize:vertical;min-height:70px;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+@media(max-width:560px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+
+/* ═══════════════════════════ BUTTONS ═══════════════════════════ */
+.btn{border:none;border-radius:12px;padding:10px 20px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;justify-content:center;gap:6px;}
+.btn-primary{background:var(--amber);color:#fff;box-shadow:0 4px 14px rgba(245,166,35,.35);}
+.btn-primary:hover{background:var(--amber-d);transform:translateY(-1px);box-shadow:0 6px 20px rgba(245,166,35,.45);}
+.btn-success{background:var(--green);color:#fff;}
+.btn-success:hover{background:var(--green-d);}
+.btn-danger{background:var(--red);color:#fff;}
+.btn-danger:hover{background:#c62828;}
+.btn-blue{background:var(--blue);color:#fff;}
+.btn-purple{background:var(--purple);color:#fff;}
+.btn-outline{background:transparent;border:2px solid var(--amber);color:var(--amber);}
+.btn-outline:hover{background:var(--amber);color:#fff;}
+.btn-ghost{background:var(--bg3);color:var(--text2);border:1.5px solid var(--border);}
+.btn-ghost:hover{border-color:var(--amber);color:var(--amber);}
+.btn-sm{padding:6px 13px;font-size:.78rem;border-radius:8px;}
+.btn-xs{padding:4px 9px;font-size:.72rem;border-radius:6px;}
+.btn-full{width:100%;padding:14px;}
+
+/* ═══════════════════════════ BADGES ═══════════════════════════ */
+.badge{display:inline-flex;align-items:center;gap:3px;padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:800;}
+.bg-green{background:var(--green-l);color:#1a6040;}
+.bg-amber{background:#FFF3CD;color:#7A4500;}
+.bg-blue {background:var(--blue-l);color:#1040A0;}
+.bg-red  {background:var(--red-l);color:#8B1A1A;}
+.bg-purple{background:var(--purple-l);color:#4C1D95;}
+.bg-pink {background:var(--pink-l);color:#9D1A5E;}
+
+/* ═══════════════════════════ LIST ITEMS ═══════════════════════════ */
+.list-item{
+  display:flex;align-items:center;gap:14px;
+  padding:14px;background:var(--bg3);border-radius:14px;
+  margin-bottom:10px;border:1.5px solid var(--border);
+  transition:.2s;position:relative;overflow:hidden;
+}
+.list-item:hover{box-shadow:var(--shadow);border-color:var(--amber-l);}
+.avatar{
+  width:52px;height:52px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;flex-shrink:0;border:2px solid var(--border);
+  background:var(--surface);overflow:hidden;
+}
+.avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.item-info{flex:1;min-width:0;}
+.item-name{font-weight:800;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.item-sub{font-size:.78rem;color:var(--text3);margin-top:2px;}
+.item-actions{display:flex;gap:6px;flex-shrink:0;}
+
+/* ═══════════════════════════ SCHEDULE ITEMS ═══════════════════════════ */
+.sched-item{
+  display:flex;align-items:center;gap:14px;
+  padding:13px;background:var(--bg2);border-radius:14px;
+  margin-bottom:10px;border-left:4px solid var(--amber);
+  box-shadow:0 2px 8px rgba(0,0,0,.06);transition:.2s;
+}
+.sched-item:hover{transform:translateX(3px);}
+.sched-item.status-concluido{border-left-color:var(--green);}
+.sched-item.status-cancelado{border-left-color:var(--red);opacity:.7;}
+.sched-time{font-family:'Baloo 2',cursive;font-size:1.05rem;color:var(--amber);min-width:55px;text-align:center;font-weight:700;}
+.sched-info{flex:1;}
+.sched-name{font-weight:800;font-size:.93rem;}
+.sched-sub{font-size:.76rem;color:var(--text3);}
+
+/* ═══════════════════════════ SECTION HEADERS ═══════════════════════════ */
+.sec-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.sec-title{font-family:'Baloo 2',cursive;font-size:1.25rem;color:var(--brown-m);}
+[data-theme="dark"] .sec-title{color:var(--amber);}
+
+/* ═══════════════════════════ TABS ═══════════════════════════ */
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.tab-btn{padding:7px 16px;border-radius:30px;border:2px solid var(--border);background:var(--surface);font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer;color:var(--text3);transition:.2s;}
+.tab-btn.active{background:var(--amber);border-color:var(--amber);color:#fff;box-shadow:0 3px 10px rgba(245,166,35,.3);}
+.tab-btn:hover:not(.active){border-color:var(--amber);color:var(--amber);}
+
+/* ═══════════════════════════ MODAL ═══════════════════════════ */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px);}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--surface);border-radius:var(--radius);padding:24px;width:100%;max-width:520px;box-shadow:var(--shadow-lg);animation:popIn .25s cubic-bezier(.34,1.56,.64,1);max-height:92vh;overflow-y:auto;border:1.5px solid var(--border);}
+@keyframes popIn{from{transform:scale(.88);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+.modal-title{font-family:'Baloo 2',cursive;font-size:1.2rem;color:var(--brown-m);}
+[data-theme="dark"] .modal-title{color:var(--amber);}
+.modal-close{background:var(--bg3);border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:1rem;color:var(--text2);display:flex;align-items:center;justify-content:center;transition:.2s;}
+.modal-close:hover{background:var(--red-l);color:var(--red);}
+
+/* ═══════════════════════════ TOAST ═══════════════════════════ */
+#toast{position:fixed;bottom:24px;right:24px;background:var(--brown);color:#fff;padding:13px 22px;border-radius:14px;font-weight:800;font-size:.88rem;z-index:999;transform:translateY(90px);opacity:0;transition:.35s cubic-bezier(.34,1.56,.64,1);box-shadow:var(--shadow-lg);max-width:300px;}
+#toast.show{transform:translateY(0);opacity:1;}
+
+/* ═══════════════════════════ FINANCE ═══════════════════════════ */
+.fin-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
+@media(max-width:500px){.fin-summary{grid-template-columns:1fr;}}
+.fin-card{border-radius:14px;padding:16px;text-align:center;}
+.fin-card.r{background:var(--green-l);border:2px solid #a5d6a7;}
+.fin-card.d{background:var(--red-l);border:2px solid #ef9a9a;}
+.fin-card.l{background:#FFF3CD;border:2px solid #FFD54F;}
+.fin-val{font-family:'Baloo 2',cursive;font-size:1.4rem;font-weight:700;}
+.fin-lbl{font-size:.72rem;font-weight:800;color:var(--text3);}
+.trans-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed var(--border);}
+.trans-item:last-child{border-bottom:none;}
+.trans-desc{font-weight:800;font-size:.88rem;}
+.trans-date{font-size:.72rem;color:var(--text3);}
+.trans-val{font-weight:900;font-size:.95rem;}
+.pos{color:var(--green-d);}
+.neg{color:var(--red);}
+
+/* ═══════════════════════════ CHARTS ═══════════════════════════ */
+.chart-bar-wrap{margin-top:10px;}
+.chart-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:.8rem;}
+.chart-bar-label{width:80px;text-align:right;color:var(--text3);font-weight:700;flex-shrink:0;}
+.chart-bar-outer{flex:1;background:var(--bg3);border-radius:30px;height:20px;overflow:hidden;}
+.chart-bar-inner{height:100%;border-radius:30px;transition:width .8s cubic-bezier(.34,1.56,.64,1);display:flex;align-items:center;padding-left:8px;font-size:.7rem;font-weight:800;color:#fff;min-width:30px;}
+.chart-bar-val{margin-left:auto;color:var(--text2);font-weight:800;width:60px;text-align:right;}
+
+/* ═══════════════════════════ STARS ═══════════════════════════ */
+.stars{display:flex;gap:3px;}
+.star{font-size:1.2rem;cursor:pointer;transition:.2s;}
+.star:hover,.star.active{filter:brightness(1);}
+.star.inactive{filter:grayscale(1) brightness(1.5);}
+.review-item{background:var(--bg3);border-radius:14px;padding:14px;margin-bottom:10px;border:1.5px solid var(--border);}
+.review-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+.review-name{font-weight:800;font-size:.88rem;}
+.review-date{font-size:.72rem;color:var(--text3);}
+.review-text{font-size:.85rem;color:var(--text2);font-style:italic;}
+
+/* ═══════════════════════════ TEAM ═══════════════════════════ */
+.walker-card{background:var(--bg3);border-radius:14px;padding:16px;margin-bottom:12px;border:1.5px solid var(--border);display:flex;align-items:center;gap:14px;}
+.walker-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--amber-d));display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;border:3px solid var(--amber-l);}
+.walker-info{flex:1;}
+.walker-name{font-weight:800;font-size:1rem;}
+.walker-role{font-size:.76rem;color:var(--text3);}
+.walker-stats{display:flex;gap:10px;margin-top:4px;}
+.wstat{font-size:.72rem;font-weight:700;background:var(--surface);padding:3px 8px;border-radius:20px;border:1px solid var(--border);}
+
+/* ═══════════════════════════ GAMIFICATION ═══════════════════════════ */
+.xp-bar-wrap{background:var(--bg3);border-radius:30px;height:16px;margin:8px 0;overflow:hidden;border:1.5px solid var(--border);}
+.xp-bar{height:100%;border-radius:30px;background:linear-gradient(90deg,var(--amber),var(--amber-d));transition:width 1s cubic-bezier(.34,1.56,.64,1);position:relative;}
+.xp-bar::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 30%,rgba(255,255,255,.25));border-radius:30px;}
+.achievement{background:var(--bg3);border-radius:14px;padding:14px;margin-bottom:10px;border:1.5px solid var(--border);display:flex;align-items:center;gap:12px;transition:.2s;}
+.achievement.unlocked{border-color:var(--amber);background:linear-gradient(135deg,#FFF8F0,#FFF3CD);}
+[data-theme="dark"] .achievement.unlocked{background:linear-gradient(135deg,#301E0A,#3D2800);}
+.ach-icon{font-size:2rem;width:50px;text-align:center;}
+.ach-info{flex:1;}
+.ach-name{font-weight:800;font-size:.9rem;}
+.ach-desc{font-size:.76rem;color:var(--text3);}
+.ach-locked{opacity:.45;filter:grayscale(1);}
+
+/* ═══════════════════════════ HISTORY ═══════════════════════════ */
+.hist-item{padding:12px;background:var(--bg3);border-radius:12px;margin-bottom:8px;border-left:3px solid var(--amber);border:1.5px solid var(--border);border-left:3px solid var(--amber);}
+.hist-date{font-size:.72rem;color:var(--text3);font-weight:700;}
+.hist-desc{font-size:.85rem;font-weight:700;}
+
+/* ═══════════════════════════ HEALTH / VACCINE ═══════════════════════════ */
+.vacc-item{display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg3);border-radius:12px;margin-bottom:8px;border:1.5px solid var(--border);}
+.vacc-status{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.vacc-ok{background:var(--green);}
+.vacc-exp{background:var(--red);}
+.vacc-pend{background:var(--amber);}
+
+/* ═══════════════════════════ PLANS ═══════════════════════════ */
+.plan-card{border-radius:var(--radius);padding:20px;margin-bottom:14px;border:2px solid var(--border);background:var(--surface);transition:.2s;cursor:pointer;}
+.plan-card:hover,.plan-card.selected{border-color:var(--amber);box-shadow:0 0 0 3px rgba(245,166,35,.15);}
+.plan-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+.plan-name{font-family:'Baloo 2',cursive;font-size:1.1rem;color:var(--brown-m);}
+[data-theme="dark"] .plan-name{color:var(--amber);}
+.plan-price{font-family:'Baloo 2',cursive;font-size:1.4rem;color:var(--green-d);}
+.plan-features{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.plan-features li{font-size:.82rem;display:flex;align-items:center;gap:6px;color:var(--text2);}
+
+/* ═══════════════════════════ ROUTE CARD ═══════════════════════════ */
+.route-card{background:var(--bg3);border-radius:14px;padding:14px;margin-bottom:10px;border:1.5px solid var(--border);display:flex;align-items:center;gap:12px;}
+.route-dot{width:16px;height:16px;border-radius:50%;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,.2);}
+
+/* ═══════════════════════════ NOTIFICATION PANEL ═══════════════════════════ */
+.notif-panel{position:fixed;top:64px;right:12px;width:320px;background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow-lg);border:1.5px solid var(--border);z-index:400;display:none;animation:popIn .2s ease;}
+.notif-panel.open{display:block;}
+.notif-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.notif-title{font-family:'Baloo 2',cursive;font-size:1rem;color:var(--text);}
+.notif-item{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start;}
+.notif-item:last-child{border-bottom:none;}
+.notif-icon{font-size:1.3rem;flex-shrink:0;}
+.notif-text{font-size:.8rem;color:var(--text2);font-weight:700;}
+.notif-time{font-size:.7rem;color:var(--text3);}
+.notif-empty{padding:24px;text-align:center;color:var(--text3);font-size:.85rem;}
+
+/* ═══════════════════════════ SEARCH ═══════════════════════════ */
+.search-wrap{position:relative;margin-bottom:14px;}
+.search-wrap input{padding-left:38px;}
+.search-ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:1rem;color:var(--text3);pointer-events:none;}
+
+/* ═══════════════════════════ PROGRESS ═══════════════════════════ */
+.progress-ring{display:flex;align-items:center;gap:14px;padding:14px;background:var(--bg3);border-radius:14px;margin-bottom:10px;}
+.ring-wrap{position:relative;width:60px;height:60px;flex-shrink:0;}
+.ring-wrap svg{transform:rotate(-90deg);}
+.ring-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',cursive;font-size:.85rem;font-weight:700;color:var(--amber);}
+.ring-info{flex:1;}
+.ring-title{font-weight:800;font-size:.9rem;}
+.ring-sub{font-size:.76rem;color:var(--text3);}
+
+/* ═══════════════════════════ EMPTY STATES ═══════════════════════════ */
+.empty{text-align:center;padding:36px 20px;color:var(--text3);}
+.empty .eico{font-size:3rem;margin-bottom:10px;display:block;}
+.empty p{font-weight:700;font-size:.9rem;}
+
+/* ═══════════════════════════ DECORATIVE ═══════════════════════════ */
+.paw-bg{position:fixed;pointer-events:none;font-size:9rem;opacity:.028;z-index:0;}
+.paw-bg.p1{top:8%;left:-3%;transform:rotate(20deg);}
+.paw-bg.p2{bottom:10%;right:-3%;transform:rotate(-15deg);}
+
+/* ═══════════════════════════ PHOTO UPLOAD ═══════════════════════════ */
+.photo-upload{width:90px;height:90px;border-radius:50%;border:3px dashed var(--amber);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;background:var(--bg3);flex-shrink:0;position:relative;}
+.photo-upload img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.photo-upload-icon{font-size:1.8rem;color:var(--amber);}
+.photo-upload input{position:absolute;inset:0;opacity:0;cursor:pointer;}
+
+/* ═══════════════════════════ TODAY BANNER ═══════════════════════════ */
+.today-banner{background:linear-gradient(135deg,#FFF3CD,#FFE0A0);border:2px solid var(--amber-l);border-radius:var(--radius);padding:18px;margin-bottom:18px;}
+[data-theme="dark"] .today-banner{background:linear-gradient(135deg,#2D1F00,#3D2800);border-color:#5A3A00;}
+.today-title{font-family:'Baloo 2',cursive;font-size:1rem;color:var(--brown-m);margin-bottom:12px;}
+[data-theme="dark"] .today-title{color:var(--amber);}
+
+/* ═══════════════════════════ MAP PLACEHOLDER ═══════════════════════════ */
+.map-box{border-radius:var(--radius);overflow:hidden;height:280px;border:2.5px solid var(--amber-l);background:linear-gradient(135deg,#e8f4e8,#d4ebd4);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--text3);}
+[data-theme="dark"] .map-box{background:linear-gradient(135deg,#0D1F0D,#152515);}
+.map-ico{font-size:3.5rem;}
+
+/* ═══════════════════════════ PRINT / PDF ═══════════════════════════ */
+@media print{
+  header,nav,.notif-panel,#toast,.btn,#modal-recibo .modal-close{display:none!important;}
+  .page{display:block!important;padding:0;}
+  body{background:#fff;color:#000;}
+}
+
+/* ═══════════════════════════ SCROLLABLE MODAL ═══════════════════════════ */
+.modal::-webkit-scrollbar{width:4px;}
+.modal::-webkit-scrollbar-thumb{background:var(--amber);border-radius:4px;}
+
+/* ═══════════════════════════ LEVEL BADGE ═══════════════════════════ */
+.level-badge{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--amber),var(--amber-d));color:#fff;border-radius:30px;padding:5px 14px;font-weight:800;font-size:.85rem;box-shadow:0 3px 10px rgba(245,166,35,.35);}
+
+/* ═══════════════════════════ CLIENT DETAIL ═══════════════════════════ */
+.detail-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.detail-tab{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--surface);font-size:.78rem;font-weight:800;cursor:pointer;color:var(--text3);transition:.2s;}
+.detail-tab.active{background:var(--amber);border-color:var(--amber);color:#fff;}
+.detail-section{display:none;}
+.detail-section.active{display:block;}
+
+/* select dark mode */
+[data-theme="dark"] select option{background:var(--surface);color:var(--text);}
+</style>
+</head>
+<body>
+
+<div class="paw-bg p1">🐾</div>
+<div class="paw-bg p2">🐾</div>
+
+<!-- ════════════════ HEADER ════════════════ -->
+<header>
+  <div class="logo">
+    <span class="logo-icon">🐾</span>
+    <h1>Dog Walker Pro</h1>
+  </div>
+  <div class="header-right">
+    <div class="hpill"><span id="h-dogs">0</span>Cães</div>
+    <div class="hpill"><span id="h-today">0</span>Hoje</div>
+    <div class="hpill" id="h-mes-wrap"><span id="h-mes">R$0</span>Mês</div>
+    <button class="notif-btn" onclick="toggleNotif()" id="notif-btn">🔔
+      <span class="notif-badge" id="notif-count" style="display:none">0</span>
+    </button>
+    <button class="theme-btn" onclick="toggleTheme()" id="theme-ico">🌙</button>
+  </div>
+</header>
+
+<!-- NOTIFICATION PANEL -->
+<div class="notif-panel" id="notif-panel">
+  <div class="notif-header">
+    <span class="notif-title">🔔 Lembretes</span>
+    <button class="btn btn-xs btn-ghost" onclick="clearNotifs()">Limpar</button>
+  </div>
+  <div id="notif-list"><div class="notif-empty">Nenhum lembrete 🎉</div></div>
+</div>
+
+<!-- ════════════════ NAV ════════════════ -->
+<nav>
+  <button class="nav-btn active" onclick="showPage('dashboard')"><span class="ni">🏠</span>Dashboard</button>
+  <button class="nav-btn" onclick="showPage('clientes')"><span class="ni">🐶</span>Clientes</button>
+  <button class="nav-btn" onclick="showPage('agenda')"><span class="ni">📅</span>Agenda</button>
+  <button class="nav-btn" onclick="showPage('financeiro')"><span class="ni">💰</span>Financeiro</button>
+  <button class="nav-btn" onclick="showPage('equipe')"><span class="ni">👥</span>Equipe</button>
+  <button class="nav-btn" onclick="showPage('avaliacoes')"><span class="ni">⭐</span>Avaliações</button>
+  <button class="nav-btn" onclick="showPage('conquistas')"><span class="ni">🏆</span>Conquistas</button>
+  <button class="nav-btn" onclick="showPage('rotas')"><span class="ni">🗺️</span>Rotas</button>
+</nav>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE: DASHBOARD
+════════════════════════════════════════════════════ -->
+<div id="page-dashboard" class="page active">
+
+  <!-- Level & XP -->
+  <div class="card" style="margin-bottom:14px;">
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:.75rem;font-weight:800;color:var(--text3);margin-bottom:4px;">SEU NÍVEL</div>
+        <div class="level-badge" id="level-badge">🌟 Nível 1 – Iniciante</div>
+      </div>
+      <div style="flex:1;min-width:160px;">
+        <div style="display:flex;justify-content:space-between;font-size:.75rem;font-weight:800;color:var(--text3);margin-bottom:4px;">
+          <span>XP</span><span id="xp-label">0 / 100</span>
+        </div>
+        <div class="xp-bar-wrap"><div class="xp-bar" id="xp-bar" style="width:0%"></div></div>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="showPage('conquistas')">🏆 Conquistas</button>
+    </div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card sc-amber"><div class="snum" id="d-clientes">0</div><div class="slbl">👥 Clientes</div></div>
+    <div class="stat-card sc-green"><div class="snum" id="d-passeios">0</div><div class="slbl">🦮 Passeios</div></div>
+    <div class="stat-card sc-blue"><div class="snum" id="d-hoje">0</div><div class="slbl">📅 Hoje</div></div>
+    <div class="stat-card sc-purple"><div class="snum" id="d-receita">R$0</div><div class="slbl">💰 Mês</div></div>
+  </div>
+
+  <!-- HOJE -->
+  <div class="today-banner">
+    <div class="today-title">🌤️ Passeios de Hoje — <span id="today-date"></span></div>
+    <div id="today-list"><div class="empty"><span class="eico">😴</span><p>Nenhum passeio hoje</p></div></div>
+  </div>
+
+  <!-- MINI CHART -->
+  <div class="card">
+    <div class="card-title">📊 Receita — Últimos 6 meses</div>
+    <div class="chart-bar-wrap" id="dash-chart"></div>
+  </div>
+
+  <!-- PRÓXIMOS -->
+  <div class="card">
+    <div class="card-title">📆 Próximos Agendamentos</div>
+    <div id="proximos-list"><div class="empty"><span class="eico">📭</span><p>Sem agendamentos futuros</p></div></div>
+  </div>
+
+  <!-- QUICK ACTIONS -->
+  <div class="grid-2" style="margin-top:4px;">
+    <button class="btn btn-primary btn-full" onclick="showPage('clientes');openModal('modal-cliente')">🐶 Novo Cliente</button>
+    <button class="btn btn-success btn-full" onclick="showPage('agenda');openModal('modal-agenda')">📅 Agendar Passeio</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE: CLIENTES
+════════════════════════════════════════════════════ -->
+<div id="page-clientes" class="page">
+  <div class="sec-header">
+    <div class="sec-title">🐶 Clientes & Cães</div>
+    <button class="btn btn-primary btn-sm" onclick="openModal('modal-cliente')">+ Novo</button>
+  </div>
+  <div class="card">
+    <div class="search-wrap"><span class="search-ico">🔍</span><input id="busca-cliente" placeholder="Buscar por nome, cão, raça..." oninput="renderClientes()"/></div>
+    <div id="lista-clientes"><div class="empty"><span class="eico">🐾</span><p>Nenhum cliente cadastrado</p></div></div>
+  </div>
+</div>
+
+<!-- CLIENT DETAIL MODAL -->
+<div class="modal-overlay" id="modal-detalhe-cliente">
+  <div class="modal" style="max-width:580px;">
+    <div class="modal-header">
+      <div class="modal-title" id="detail-title">🐶 Detalhes</div>
+      <button class="modal-close" onclick="closeModal('modal-detalhe-cliente')">✕</button>
+    </div>
+    <div class="detail-tabs">
+      <button class="detail-tab active" onclick="showDetailTab('info',this)">📋 Info</button>
+      <button class="detail-tab" onclick="showDetailTab('historico',this)">📅 Histórico</button>
+      <button class="detail-tab" onclick="showDetailTab('saude',this)">💉 Saúde</button>
+      <button class="detail-tab" onclick="showDetailTab('plano',this)">📦 Plano</button>
+    </div>
+    <div class="detail-section active" id="dt-info"></div>
+    <div class="detail-section" id="dt-historico"></div>
+    <div class="detail-section" id="dt-saude"></div>
+    <div class="detail-section" id="dt-plano"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE: AGENDA
+════════════════════════════════════════════════════ -->
+<div id="page-agenda" class="page">
+  <div class="sec-header">
+    <div class="sec-title">📅 Agenda de Passeios</div>
+    <button class="btn btn-primary btn-sm" onclick="openModal('modal-agenda')">+ Agendar</button>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="setAgFiltro('todos',this)">Todos</button>
+    <button class="tab-btn" onclick="setAgFiltro('hoje',this)">Hoje</button>
+    <button class="tab-btn" onclick="setAgFiltro('semana',this)">Esta Semana</button>
+    <button class="tab-btn" onclick="setAgFiltro('pendente',this)">Pendentes</button>
+    <button class="tab-btn" onclick="setAgFiltro('concluido',this)">Concluídos</button>
+  </div>
+  <div id="lista-agenda"><div class="empty"><span class="eico">📭</span><p>Nenhum passeio encontrado</p></div></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE: FINANCEIRO
+════════════════════════════════════════════════════ -->
+<div id="page-financeiro" class="page">
+  <div class="sec-header">
+    <div class="sec-title">💰 Financeiro</div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn btn-ghost btn-sm" onclick="exportarCSV()">📥 CSV</button>
+      <button class="btn btn-primary btn-sm" onclick="openModal('modal-transacao')">+ Lançamento</button>
+    </div>
+  </div>
+  <div class="fin-summary">
+    <div class="fin-card r"><div class="fin-val pos" id="fin-rec">R$ 0,00</div><div class="fin-lbl">✅ Receitas do Mês</div></div>
+    <div class="fin-card d"><div class="fin-val neg" id="fin-des">R$ 0,00</div><div class="fin-lbl">❌ Despesas do Mês</div></div>
+    <div class="fin-card l"><div class="fin-val" id="fin-luc" style="color:#7A4500">R$ 0,00</div><div class="fin-lbl">📊 Saldo</div></div>
+  </div>
+
+  <!-- CHART -->
+  <div class="card">
+    <div class="card-title">📈 Receita por Mês</div>
+    <div class="chart-bar-wrap" id="fin-chart"></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="setFinFiltro('todos',this)">Todos</button>
+    <button class="tab-btn" onclick="setFinFiltro('receita',this)">Receitas</button>
+    <button class="tab-btn" onclick="setFinFiltro('despesa',this)">Despesas</button>
+  </div>
+  <div class="card">
+    <div id="lista-transacoes"><div class="empty"><span class="eico">💸</span><p>Nenhum lançamento</p></div></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE: EQUIPE
+════════════════════════════════════════════════════ -->
+<div id="page-equipe" class="page">
+  <div class="sec-header">
+    <div class="sec-title">👥 Equipe de Walkers</div>
+    <button class="btn btn-primary btn-sm" onclick="openModal('modal-walker')">+ Walker</button>
+  </div>
+  <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);">
+    <div class="stat-card sc-amber"><div class="snum" id="eq-total">0</div><div class="slbl">👥 Total</div></div>
+    <div class="stat-card sc-green"><div class="snum" id="eq-ativos">0</div><div class="slbl">✅ Ativos</div></div>
+    <div class="stat-card sc-blue"><div class="snum" id="eq-passeios">0</div><div class="slbl">🦮 Passeios Equipe</div></div>
+  </div>
+  <div id="lista-walkers"><div class="empty"><span class="eico">👥</span><p>Nenhum walker cadastrado</p></div></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE: AVALIAÇÕES
+════════════════════════════════════════════════════ -->
+<div id="page-avaliacoes" class="page">
+  <div class="sec-header">
+    <div class="sec-title">⭐ Avaliações</div>
+    <button class="btn btn-primary btn-sm" onclick="openModal('modal-avaliacao')">+ Nova</button>
+  </div>
+  <div class="card" style="text-align:center;padding:24px;">
+    <div style="font-size:3rem;font-family:'Baloo 2',cursive;" id="media-nota">—</div>
+    <div style="font-size:.8rem;font-weight:800;color:var(--text3);">MÉDIA GERAL</div>
+    <div class="stars" style="justify-content:center;margin-top:8px;" id="media-stars"></div>
+  </div>
+  <div id="lista-avaliacoes"><div class="empty"><span class="eico">⭐</span><p>Nenhuma avaliação ainda</p></div></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE: CONQUISTAS
+════════════════════════════════════════════════════ -->
+<div id="page-conquistas" class="page">
+  <div class="sec-title" style="margin-bottom:4px;">🏆 Conquistas & Metas</div>
+  <div style="color:var(--text3);font-size:.85rem;margin-bottom:16px;">Complete desafios para ganhar XP e subir de nível!</div>
+
+  <!-- METAS DO MÊS -->
+  <div class="card">
+    <div class="card-title">🎯 Metas do Mês</div>
+    <div id="lista-metas"></div>
+  </div>
+
+  <!-- CONQUISTAS -->
+  <div class="card">
+    <div class="card-title">🥇 Suas Conquistas</div>
+    <div id="lista-conquistas"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE: ROTAS
+════════════════════════════════════════════════════ -->
+<div id="page-rotas" class="page">
+  <div class="sec-title" style="margin-bottom:14px;">🗺️ Rotas & Regiões</div>
+  <div class="card">
+    <div class="card-title">📍 Área de Atuação</div>
+    <div class="map-box"><div class="map-ico">🗺️</div><div style="font-weight:800;">Mapa de Rotas</div><div style="font-size:.8rem;text-align:center;max-width:240px;">Conecte um GPS para rastreamento em tempo real. Gerencie rotas abaixo.</div></div>
+  </div>
+  <div class="sec-header">
+    <div class="sec-title" style="font-size:1rem;">🛤️ Minhas Rotas</div>
+    <button class="btn btn-primary btn-sm" onclick="openModal('modal-rota')">+ Rota</button>
+  </div>
+  <div id="lista-rotas"><div class="empty"><span class="eico">🛤️</span><p>Nenhuma rota cadastrada</p></div></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     MODALS
+════════════════════════════════════════════════════ -->
+
+<!-- MODAL: CLIENTE -->
+<div class="modal-overlay" id="modal-cliente">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">🐶 Novo Cliente & Cão</div>
+      <button class="modal-close" onclick="closeModal('modal-cliente')">✕</button>
+    </div>
+    <div class="form-row">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:4px;">
+        <div class="photo-upload" id="photo-preview" onclick="document.getElementById('foto-input').click()">
+          <span class="photo-upload-icon">📷</span>
+          <input type="file" id="foto-input" accept="image/*" style="display:none" onchange="previewFoto(this)"/>
+        </div>
+        <div style="flex:1;">
+          <div style="font-weight:800;font-size:.85rem;color:var(--text2);">Foto do Cão</div>
+          <div style="font-size:.75rem;color:var(--text3);">Clique para adicionar foto</div>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="form-group"><label>Nome do Dono *</label><input id="cli-nome" placeholder="Maria Silva"/></div>
+        <div class="form-group"><label>Telefone</label><input id="cli-tel" placeholder="(31) 99999-0000"/></div>
+      </div>
+      <div class="form-group"><label>Endereço</label><input id="cli-end" placeholder="Rua, nº, Bairro, Cidade"/></div>
+      <div class="form-group"><label>E-mail</label><input id="cli-email" type="email" placeholder="cliente@email.com"/></div>
+      <div class="grid-2">
+        <div class="form-group"><label>Nome do Cão *</label><input id="cli-cao" placeholder="Rex"/></div>
+        <div class="form-group"><label>Raça</label><input id="cli-raca" placeholder="Labrador"/></div>
+      </div>
+      <div class="grid-3">
+        <div class="form-group">
+          <label>Porte</label>
+          <select id="cli-porte">
+            <option value="mini">🐩 Mini</option>
+            <option value="pequeno">🐕 Pequeno</option>
+            <option value="medio">🐕 Médio</option>
+            <option value="grande">🦮 Grande</option>
+            <option value="gigante">🐻 Gigante</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Idade (anos)</label><input id="cli-idade" type="number" placeholder="3"/></div>
+        <div class="form-group"><label>Valor/Passeio R$</label><input id="cli-valor" type="number" placeholder="60"/></div>
+      </div>
+      <div class="form-group">
+        <label>Plano</label>
+        <select id="cli-plano">
+          <option value="avulso">📦 Avulso</option>
+          <option value="basico">🥉 Básico (8x/mês)</option>
+          <option value="premium">🥈 Premium (16x/mês)</option>
+          <option value="vip">🥇 VIP (22x/mês)</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Observações / Comportamento</label><textarea id="cli-obs" placeholder="Bravo com estranhos, gosta de correr..."></textarea></div>
+      <button class="btn btn-primary btn-full" onclick="salvarCliente()">💾 Salvar Cliente</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: AGENDA -->
+<div class="modal-overlay" id="modal-agenda">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">📅 Agendar Passeio</div>
+      <button class="modal-close" onclick="closeModal('modal-agenda')">✕</button>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Cliente / Cão *</label><select id="ag-cliente"><option value="">Selecione...</option></select></div>
+      <div class="form-group"><label>Walker Responsável</label><select id="ag-walker"><option value="">Eu mesmo</option></select></div>
+      <div class="grid-2">
+        <div class="form-group"><label>Data *</label><input id="ag-data" type="date"/></div>
+        <div class="form-group"><label>Horário *</label><input id="ag-hora" type="time"/></div>
+      </div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Duração</label>
+          <select id="ag-duracao">
+            <option value="30">30 min</option>
+            <option value="60" selected>1 hora</option>
+            <option value="90">1h 30min</option>
+            <option value="120">2 horas</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Status</label>
+          <select id="ag-status">
+            <option value="agendado">📅 Agendado</option>
+            <option value="concluido">✅ Concluído</option>
+            <option value="cancelado">❌ Cancelado</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>Rota</label><select id="ag-rota"><option value="">Sem rota específica</option></select></div>
+      <div class="form-group"><label>Observações</label><textarea id="ag-obs" placeholder="Levar petisco, rota especial..."></textarea></div>
+      <button class="btn btn-primary btn-full" onclick="salvarAgendamento()">💾 Salvar Agendamento</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: TRANSAÇÃO -->
+<div class="modal-overlay" id="modal-transacao">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">💰 Novo Lançamento</div>
+      <button class="modal-close" onclick="closeModal('modal-transacao')">✕</button>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Tipo</label>
+        <select id="tr-tipo">
+          <option value="receita">✅ Receita</option>
+          <option value="despesa">❌ Despesa</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Descrição *</label><input id="tr-desc" placeholder="Passeio Rex – semana 1"/></div>
+      <div class="grid-2">
+        <div class="form-group"><label>Valor (R$) *</label><input id="tr-val" type="number" step="0.01" placeholder="0,00"/></div>
+        <div class="form-group"><label>Data</label><input id="tr-data" type="date"/></div>
+      </div>
+      <div class="form-group">
+        <label>Categoria</label>
+        <select id="tr-cat">
+          <option value="passeio">🦮 Passeio</option>
+          <option value="mensalidade">📆 Mensalidade/Plano</option>
+          <option value="material">🎽 Material/Equipamento</option>
+          <option value="transporte">🚗 Transporte</option>
+          <option value="marketing">📣 Marketing</option>
+          <option value="outro">📦 Outro</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Observações</label><input id="tr-obs" placeholder="Opcional"/></div>
+      <button class="btn btn-primary btn-full" onclick="salvarTransacao()">💾 Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: WALKER -->
+<div class="modal-overlay" id="modal-walker">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">👤 Novo Walker</div>
+      <button class="modal-close" onclick="closeModal('modal-walker')">✕</button>
+    </div>
+    <div class="form-row">
+      <div class="grid-2">
+        <div class="form-group"><label>Nome *</label><input id="wk-nome" placeholder="João Silva"/></div>
+        <div class="form-group"><label>Telefone</label><input id="wk-tel" placeholder="(31) 99999-0000"/></div>
+      </div>
+      <div class="form-group">
+        <label>Função</label>
+        <select id="wk-funcao">
+          <option value="walker">🦮 Dog Walker</option>
+          <option value="senior">⭐ Walker Sênior</option>
+          <option value="gerente">👑 Gerente</option>
+        </select>
+      </div>
+      <div class="grid-2">
+        <div class="form-group"><label>Comissão (%)</label><input id="wk-comissao" type="number" placeholder="40"/></div>
+        <div class="form-group">
+          <label>Status</label>
+          <select id="wk-status">
+            <option value="ativo">✅ Ativo</option>
+            <option value="inativo">❌ Inativo</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>Regiões de Atuação</label><input id="wk-regioes" placeholder="Savassi, Lourdes, Centro..."/></div>
+      <button class="btn btn-primary btn-full" onclick="salvarWalker()">💾 Salvar Walker</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: AVALIAÇÃO -->
+<div class="modal-overlay" id="modal-avaliacao">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">⭐ Nova Avaliação</div>
+      <button class="modal-close" onclick="closeModal('modal-avaliacao')">✕</button>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Cliente</label><select id="av-cliente"><option value="">Selecione...</option></select></div>
+      <div class="form-group">
+        <label>Nota</label>
+        <div class="stars" id="star-picker" style="margin-top:6px;">
+          <span class="star active" onclick="setStar(1)">⭐</span>
+          <span class="star active" onclick="setStar(2)">⭐</span>
+          <span class="star active" onclick="setStar(3)">⭐</span>
+          <span class="star active" onclick="setStar(4)">⭐</span>
+          <span class="star active" onclick="setStar(5)">⭐</span>
+        </div>
+        <input type="hidden" id="av-nota" value="5"/>
+      </div>
+      <div class="form-group"><label>Comentário</label><textarea id="av-comentario" placeholder="Excelente serviço! O Rex adorou..."></textarea></div>
+      <div class="form-group"><label>Data</label><input id="av-data" type="date"/></div>
+      <button class="btn btn-primary btn-full" onclick="salvarAvaliacao()">💾 Salvar Avaliação</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: ROTA -->
+<div class="modal-overlay" id="modal-rota">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">🛤️ Nova Rota</div>
+      <button class="modal-close" onclick="closeModal('modal-rota')">✕</button>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Nome da Rota *</label><input id="rt-nome" placeholder="Rota Parque Central"/></div>
+      <div class="grid-2">
+        <div class="form-group"><label>Bairro / Região</label><input id="rt-bairro" placeholder="Savassi"/></div>
+        <div class="form-group"><label>Distância (km)</label><input id="rt-km" type="number" step="0.1" placeholder="2.5"/></div>
+      </div>
+      <div class="grid-2">
+        <div class="form-group"><label>Duração Média (min)</label><input id="rt-dur" type="number" placeholder="45"/></div>
+        <div class="form-group">
+          <label>Cor</label>
+          <select id="rt-cor">
+            <option value="#3DAA6B">🟢 Verde</option>
+            <option value="#2378D5">🔵 Azul</option>
+            <option value="#F5A623">🟠 Laranja</option>
+            <option value="#E5453A">🔴 Vermelho</option>
+            <option value="#7C3AED">🟣 Roxo</option>
+            <option value="#E84393">🌸 Rosa</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>Pontos de Referência</label><textarea id="rt-pontos" placeholder="Parque das Mangabeiras, praça central, pet shop..."></textarea></div>
+      <button class="btn btn-primary btn-full" onclick="salvarRota()">💾 Salvar Rota</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: RECIBO PDF -->
+<div class="modal-overlay" id="modal-recibo">
+  <div class="modal" style="max-width:500px;">
+    <div class="modal-header">
+      <div class="modal-title">🧾 Recibo de Pagamento</div>
+      <button class="modal-close" onclick="closeModal('modal-recibo')">✕</button>
+    </div>
+    <div id="recibo-content" style="font-family:'Nunito',sans-serif;font-size:.9rem;line-height:1.7;"></div>
+    <div style="margin-top:16px;display:flex;gap:10px;">
+      <button class="btn btn-primary btn-full" onclick="imprimirRecibo()">🖨️ Imprimir / Salvar PDF</button>
+      <button class="btn btn-ghost btn-sm" onclick="closeModal('modal-recibo')">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: VACINAÇÃO -->
+<div class="modal-overlay" id="modal-vacina">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="vacina-modal-title">💉 Saúde do Cão</div>
+      <button class="modal-close" onclick="closeModal('modal-vacina')">✕</button>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Vacina / Procedimento *</label><input id="vac-nome" placeholder="Antirrábica, Vermifugação..."/></div>
+      <div class="grid-2">
+        <div class="form-group"><label>Data de Aplicação</label><input id="vac-data" type="date"/></div>
+        <div class="form-group"><label>Próxima Dose</label><input id="vac-prox" type="date"/></div>
+      </div>
+      <div class="form-group"><label>Veterinário / Clínica</label><input id="vac-vet" placeholder="Dr. Carlos – VetCare"/></div>
+      <div class="form-group"><label>Observações</label><input id="vac-obs" placeholder="Opcional"/></div>
+      <input type="hidden" id="vac-cliente-id"/>
+      <button class="btn btn-primary btn-full" onclick="salvarVacina()">💾 Salvar</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════════
+//  STATE & PERSISTENCE
+// ══════════════════════════════════════════════
+const DEFAULT = {
+  clientes:[], agendamentos:[], transacoes:[],
+  rotas:[], walkers:[], avaliacoes:[], vacinas:[],
+  theme:'light', xp:0, conquistas:[]
+};
+let S = JSON.parse(localStorage.getItem('dwpro2') || 'null') || {...DEFAULT};
+function save(){ localStorage.setItem('dwpro2', JSON.stringify(S)); }
+
+// ══════════════════════════════════════════════
+//  UTILS
+// ══════════════════════════════════════════════
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2);
+const todayStr = () => new Date().toISOString().split('T')[0];
+const fmtDate = d => { if(!d) return '—'; const [y,m,dd]=d.split('-'); return `${dd}/${m}/${y}`; };
+const fmtMoney = v => 'R$ ' + Number(v||0).toFixed(2).replace('.',',');
+const porteIco = p => ({mini:'🐩',pequeno:'🐕',medio:'🐕',grande:'🦮',gigante:'🐻'}[p]||'🐕');
+const planoLabel = p => ({avulso:'Avulso',basico:'🥉 Básico',premium:'🥈 Premium',vip:'🥇 VIP'}[p]||'Avulso');
+const funcaoIco = f => ({walker:'🦮',senior:'⭐',gerente:'👑'}[f]||'👤');
+
+function toast(msg, dur=2800){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), dur);
+}
+
+// ══════════════════════════════════════════════
+//  THEME
+// ══════════════════════════════════════════════
+function applyTheme(){
+  document.documentElement.setAttribute('data-theme', S.theme);
+  document.getElementById('theme-ico').textContent = S.theme==='dark' ? '☀️' : '🌙';
+}
+function toggleTheme(){
+  S.theme = S.theme==='dark' ? 'light' : 'dark';
+  save(); applyTheme();
+}
+applyTheme();
+
+// ══════════════════════════════════════════════
+//  NAV
+// ══════════════════════════════════════════════
+const PAGES = ['dashboard','clientes','agenda','financeiro','equipe','avaliacoes','conquistas','rotas'];
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  const idx = PAGES.indexOf(id);
+  if(idx>=0) document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+  const renderers = {
+    dashboard: renderDashboard,
+    clientes: renderClientes,
+    agenda: renderAgenda,
+    financeiro: renderFinanceiro,
+    equipe: renderEquipe,
+    avaliacoes: renderAvaliacoes,
+    conquistas: renderConquistas,
+    rotas: renderRotas
+  };
+  if(renderers[id]) renderers[id]();
+  // close notif panel
+  document.getElementById('notif-panel').classList.remove('open');
+}
+
+// ══════════════════════════════════════════════
+//  MODALS
+// ══════════════════════════════════════════════
+function openModal(id){
+  // pre-populate selects
+  if(id==='modal-agenda' || id==='modal-avaliacao'){
+    const sel = document.getElementById(id==='modal-agenda'?'ag-cliente':'av-cliente');
+    sel.innerHTML = '<option value="">Selecione...</option>';
+    S.clientes.forEach(c => { const o=document.createElement('option'); o.value=c.id; o.textContent=`${c.cao} (${c.nome})`; sel.appendChild(o); });
+  }
+  if(id==='modal-agenda'){
+    // walker select
+    const ws = document.getElementById('ag-walker');
+    ws.innerHTML = '<option value="">Eu mesmo</option>';
+    S.walkers.filter(w=>w.status==='ativo').forEach(w => { const o=document.createElement('option'); o.value=w.id; o.textContent=`${funcaoIco(w.funcao)} ${w.nome}`; ws.appendChild(o); });
+    // rota select
+    const rs = document.getElementById('ag-rota');
+    rs.innerHTML = '<option value="">Sem rota específica</option>';
+    S.rotas.forEach(r => { const o=document.createElement('option'); o.value=r.id; o.textContent=r.nome; rs.appendChild(o); });
+    // defaults
+    if(!document.getElementById('ag-data').value) document.getElementById('ag-data').value = todayStr();
+    if(!document.getElementById('ag-hora').value) document.getElementById('ag-hora').value = '08:00';
+  }
+  if(id==='modal-transacao') document.getElementById('tr-data').value = todayStr();
+  if(id==='modal-avaliacao') document.getElementById('av-data').value = todayStr();
+  document.getElementById(id).classList.add('open');
+}
+function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(m =>
+  m.addEventListener('click', e => { if(e.target===m) m.classList.remove('open'); })
+);
+
+// ══════════════════════════════════════════════
+//  NOTIFICATIONS
+// ══════════════════════════════════════════════
+let notifs = [];
+function buildNotifs(){
+  notifs = [];
+  const today = todayStr();
+  const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate()+1);
+  const tmrStr = tomorrow.toISOString().split('T')[0];
+
+  S.agendamentos.filter(a=>a.status==='agendado').forEach(a => {
+    const cli = S.clientes.find(c=>c.id===a.clienteId);
+    if(a.data === today) notifs.push({ico:'🦮', text:`Passeio hoje às ${a.hora} – ${cli?.cao||'—'}`, time:'Hoje'});
+    if(a.data === tmrStr) notifs.push({ico:'📅', text:`Passeio amanhã às ${a.hora} – ${cli?.cao||'—'}`, time:'Amanhã'});
+  });
+  // vacinas expirando
+  S.vacinas.forEach(v => {
+    if(!v.proxima) return;
+    const diff = (new Date(v.proxima) - new Date()) / 86400000;
+    if(diff < 30 && diff > 0){
+      const cli = S.clientes.find(c=>c.id===v.clienteId);
+      notifs.push({ico:'💉', text:`Vacina ${v.nome} de ${cli?.cao||'—'} vence em ${Math.round(diff)} dias`, time:'Saúde'});
+    }
+  });
+  updateNotifBadge();
+}
+function updateNotifBadge(){
+  const badge = document.getElementById('notif-count');
+  badge.textContent = notifs.length;
+  badge.style.display = notifs.length ? 'flex' : 'none';
+}
+function renderNotifPanel(){
+  const el = document.getElementById('notif-list');
+  if(!notifs.length){ el.innerHTML='<div class="notif-empty">Tudo em dia! 🎉</div>'; return; }
+  el.innerHTML = notifs.map(n=>`
+    <div class="notif-item">
+      <div class="notif-icon">${n.ico}</div>
+      <div><div class="notif-text">${n.text}</div><div class="notif-time">${n.time}</div></div>
+    </div>`).join('');
+}
+function toggleNotif(){
+  const p = document.getElementById('notif-panel');
+  p.classList.toggle('open');
+  if(p.classList.contains('open')) renderNotifPanel();
+}
+function clearNotifs(){ notifs=[]; updateNotifBadge(); renderNotifPanel(); }
+document.addEventListener('click', e => {
+  const panel = document.getElementById('notif-panel');
+  const btn = document.getElementById('notif-btn');
+  if(!panel.contains(e.target) && !btn.contains(e.target)) panel.classList.remove('open');
+});
+
+// ══════════════════════════════════════════════
+//  XP & GAMIFICATION
+// ══════════════════════════════════════════════
+const LEVELS = [
+  {min:0,   name:'Iniciante',   ico:'🌱'},
+  {min:50,  name:'Aprendiz',    ico:'🐾'},
+  {min:150, name:'Experiente',  ico:'🦮'},
+  {min:350, name:'Profissional',ico:'⭐'},
+  {min:700, name:'Expert',      ico:'🏆'},
+  {min:1200,name:'Mestre',      ico:'👑'},
+];
+const ACHIEVEMENTS = [
+  {id:'first_client', name:'Primeiro Cliente!', desc:'Cadastre seu 1º cliente', ico:'🐶', xp:20, check: ()=>S.clientes.length>=1},
+  {id:'five_clients', name:'Turma Grande!',     desc:'5 clientes cadastrados',  ico:'👥', xp:50, check: ()=>S.clientes.length>=5},
+  {id:'ten_walks',    name:'Walker Dedicado',   desc:'10 passeios concluídos',  ico:'🦮', xp:60, check: ()=>S.agendamentos.filter(a=>a.status==='concluido').length>=10},
+  {id:'first_review', name:'Bem Avaliado!',     desc:'Receba sua 1ª avaliação', ico:'⭐', xp:30, check: ()=>S.avaliacoes.length>=1},
+  {id:'five_star',    name:'5 Estrelas!',        desc:'Receba uma avaliação 5⭐', ico:'🌟', xp:40, check: ()=>S.avaliacoes.some(a=>a.nota===5)},
+  {id:'team_player',  name:'Construindo Equipe', desc:'Cadastre 2+ walkers',    ico:'👥', xp:45, check: ()=>S.walkers.length>=2},
+  {id:'hundred_r',    name:'Centena!',           desc:'R$100 de receita total',  ico:'💰', xp:55, check: ()=>S.transacoes.filter(t=>t.tipo==='receita').reduce((s,t)=>s+Number(t.val),0)>=100},
+  {id:'three_routes', name:'Explorador',         desc:'3 rotas cadastradas',     ico:'🗺️', xp:35, check: ()=>S.rotas.length>=3},
+  {id:'fifty_walks',  name:'Veterano',           desc:'50 passeios concluídos',  ico:'🏅', xp:150,check: ()=>S.agendamentos.filter(a=>a.status==='concluido').length>=50},
+  {id:'ten_clients',  name:'Negócio Crescendo',  desc:'10 clientes cadastrados', ico:'🚀', xp:100,check: ()=>S.clientes.length>=10},
+];
+
+function checkAchievements(){
+  let gained = false;
+  ACHIEVEMENTS.forEach(ach => {
+    if(!S.conquistas.includes(ach.id) && ach.check()){
+      S.conquistas.push(ach.id);
+      S.xp += ach.xp;
+      toast(`🏆 Conquista desbloqueada: ${ach.name} (+${ach.xp} XP)`, 4000);
+      gained = true;
+    }
+  });
+  if(gained){ save(); updateXPBar(); }
+}
+
+function getLevel(){
+  let lvl = LEVELS[0];
+  for(const l of LEVELS){ if(S.xp >= l.min) lvl=l; }
+  return lvl;
+}
+function getNextLevel(){
+  const cur = getLevel();
+  const idx = LEVELS.indexOf(cur);
+  return idx < LEVELS.length-1 ? LEVELS[idx+1] : null;
+}
+
+function updateXPBar(){
+  const lvl = getLevel();
+  const next = getNextLevel();
+  const bar = document.getElementById('xp-bar');
+  const label = document.getElementById('xp-label');
+  const badge = document.getElementById('level-badge');
+  if(badge) badge.textContent = `${lvl.ico} Nível ${LEVELS.indexOf(lvl)+1} – ${lvl.name}`;
+  if(next){
+    const pct = ((S.xp - lvl.min) / (next.min - lvl.min)) * 100;
+    if(bar) bar.style.width = Math.min(pct,100)+'%';
+    if(label) label.textContent = `${S.xp} / ${next.min}`;
+  } else {
+    if(bar) bar.style.width='100%';
+    if(label) label.textContent = `${S.xp} XP – Máximo!`;
+  }
+}
+
+function renderConquistas(){
+  // metas
+  const concluidos = S.agendamentos.filter(a=>a.status==='concluido').length;
+  const recMes = S.transacoes.filter(t=>t.tipo==='receita'&&t.data?.startsWith(new Date().toISOString().slice(0,7))).reduce((s,t)=>s+Number(t.val),0);
+  const metas = [
+    {label:'🦮 Passeios este mês', cur: S.agendamentos.filter(a=>a.status==='concluido'&&a.data?.startsWith(new Date().toISOString().slice(0,7))).length, meta:20},
+    {label:'💰 Receita do mês',    cur: recMes, meta:500, prefix:'R$'},
+    {label:'⭐ Avaliações recebidas', cur: S.avaliacoes.length, meta:10},
+    {label:'🐶 Clientes ativos',   cur: S.clientes.length, meta:15},
+  ];
+  document.getElementById('lista-metas').innerHTML = metas.map(m => {
+    const pct = Math.min((m.cur / m.meta)*100, 100);
+    const disp = m.prefix ? fmtMoney(m.cur) : m.cur;
+    const metaDisp = m.prefix ? fmtMoney(m.meta) : m.meta;
+    return `<div class="progress-ring" style="flex-direction:column;align-items:flex-start;gap:6px;">
+      <div style="display:flex;justify-content:space-between;width:100%;align-items:center;">
+        <span style="font-weight:800;font-size:.88rem;">${m.label}</span>
+        <span style="font-size:.8rem;color:var(--text3);font-weight:700;">${disp} / ${metaDisp}</span>
+      </div>
+      <div style="width:100%;background:var(--border);border-radius:30px;height:14px;overflow:hidden;">
+        <div style="height:100%;border-radius:30px;background:linear-gradient(90deg,var(--amber),var(--green));width:${pct}%;transition:width 1s;"></div>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('lista-conquistas').innerHTML = ACHIEVEMENTS.map(ach => {
+    const unlocked = S.conquistas.includes(ach.id);
+    return `<div class="achievement ${unlocked?'unlocked':'ach-locked'}">
+      <div class="ach-icon">${ach.ico}</div>
+      <div class="ach-info">
+        <div class="ach-name">${ach.name} <span style="font-size:.72rem;color:var(--amber);font-weight:800;">+${ach.xp} XP</span></div>
+        <div class="ach-desc">${ach.desc}</div>
+      </div>
+      ${unlocked?'<span class="badge bg-green">✅</span>':'<span class="badge bg-amber">🔒</span>'}
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════
+//  CLIENTES
+// ══════════════════════════════════════════════
+let currentFotoBase64 = '';
+function previewFoto(input){
+  if(!input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    currentFotoBase64 = e.target.result;
+    const pp = document.getElementById('photo-preview');
+    pp.innerHTML = `<img src="${currentFotoBase64}" alt="foto"/><input type="file" id="foto-input" accept="image/*" style="display:none" onchange="previewFoto(this)"/>`;
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+function salvarCliente(){
+  const nome = document.getElementById('cli-nome').value.trim();
+  const cao  = document.getElementById('cli-cao').value.trim();
+  if(!nome||!cao){ toast('⚠️ Preencha nome do dono e do cão!'); return; }
+  S.clientes.push({
+    id:uid(), nome, tel:document.getElementById('cli-tel').value,
+    end:document.getElementById('cli-end').value,
+    email:document.getElementById('cli-email').value,
+    cao, raca:document.getElementById('cli-raca').value,
+    porte:document.getElementById('cli-porte').value,
+    idade:document.getElementById('cli-idade').value,
+    valor:Number(document.getElementById('cli-valor').value)||60,
+    plano:document.getElementById('cli-plano').value,
+    obs:document.getElementById('cli-obs').value,
+    foto:currentFotoBase64,
+    criado:todayStr()
+  });
+  save(); currentFotoBase64='';
+  closeModal('modal-cliente');
+  ['cli-nome','cli-tel','cli-end','cli-email','cli-cao','cli-raca','cli-idade','cli-valor','cli-obs'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('photo-preview').innerHTML=`<span class="photo-upload-icon">📷</span><input type="file" id="foto-input" accept="image/*" style="display:none" onchange="previewFoto(this)"/>`;
+  renderClientes(); updateHeader(); checkAchievements();
+  toast('🐶 Cliente cadastrado com sucesso!');
+}
+
+function renderClientes(){
+  const q = (document.getElementById('busca-cliente')?.value||'').toLowerCase();
+  let list = S.clientes.filter(c =>
+    c.nome.toLowerCase().includes(q) || c.cao.toLowerCase().includes(q) ||
+    (c.raca||'').toLowerCase().includes(q)
+  );
+  const el = document.getElementById('lista-clientes');
+  if(!list.length){ el.innerHTML='<div class="empty"><span class="eico">🐾</span><p>Nenhum cliente encontrado</p></div>'; return; }
+  el.innerHTML = list.map(c => `
+    <div class="list-item">
+      <div class="avatar">
+        ${c.foto ? `<img src="${c.foto}" alt="${c.cao}"/>` : `<span style="font-size:1.5rem;">${porteIco(c.porte)}</span>`}
+      </div>
+      <div class="item-info">
+        <div class="item-name">${c.cao} <span class="badge bg-amber">${c.raca||c.porte}</span> <span class="badge bg-purple">${planoLabel(c.plano)}</span></div>
+        <div class="item-sub">👤 ${c.nome} · 📞 ${c.tel||'—'}</div>
+        <div class="item-sub">💰 ${fmtMoney(c.valor)}/passeio · 📍 ${c.end||'—'}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn btn-ghost btn-sm" onclick="verDetalhe('${c.id}')">👁️</button>
+        <button class="btn btn-primary btn-sm" onclick="agendarPara('${c.id}')">📅</button>
+        <button class="btn btn-danger btn-sm" onclick="excluirCliente('${c.id}')">🗑️</button>
+      </div>
+    </div>`).join('');
+}
+
+function excluirCliente(id){
+  if(!confirm('Excluir este cliente e todos os dados relacionados?')) return;
+  S.clientes = S.clientes.filter(c=>c.id!==id);
+  S.agendamentos = S.agendamentos.filter(a=>a.clienteId!==id);
+  S.vacinas = S.vacinas.filter(v=>v.clienteId!==id);
+  save(); renderClientes(); updateHeader(); toast('🗑️ Cliente removido');
+}
+
+function agendarPara(id){
+  showPage('agenda'); openModal('modal-agenda');
+  setTimeout(()=>{ document.getElementById('ag-cliente').value=id; },150);
+}
+
+// ── CLIENT DETAIL ──
+let detailClienteId = '';
+function verDetalhe(id){
+  detailClienteId = id;
+  const c = S.clientes.find(x=>x.id===id);
+  if(!c) return;
+  document.getElementById('detail-title').textContent = `${porteIco(c.porte)} ${c.cao} – ${c.nome}`;
+
+  // Info tab
+  document.getElementById('dt-info').innerHTML = `
+    <div style="display:flex;gap:16px;margin-bottom:16px;align-items:center;">
+      <div class="avatar" style="width:72px;height:72px;font-size:2rem;flex-shrink:0;">
+        ${c.foto?`<img src="${c.foto}"/>`:`<span>${porteIco(c.porte)}</span>`}
+      </div>
+      <div>
+        <div style="font-size:1.1rem;font-weight:900;">${c.cao}</div>
+        <div style="color:var(--text3);font-size:.85rem;">${c.raca||'—'} · ${c.porte} · ${c.idade||'?'} anos</div>
+        <div class="badge bg-purple" style="margin-top:4px;">${planoLabel(c.plano)}</div>
+      </div>
+    </div>
+    <div class="grid-2" style="gap:10px;font-size:.85rem;">
+      <div><b>👤 Dono</b><br>${c.nome}</div>
+      <div><b>📞 Telefone</b><br>${c.tel||'—'}</div>
+      <div><b>📧 E-mail</b><br>${c.email||'—'}</div>
+      <div><b>💰 Valor/Passeio</b><br>${fmtMoney(c.valor)}</div>
+      <div style="grid-column:1/-1;"><b>📍 Endereço</b><br>${c.end||'—'}</div>
+      ${c.obs?`<div style="grid-column:1/-1;"><b>📝 Obs.</b><br>${c.obs}</div>`:''}
+    </div>
+    <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn btn-primary btn-sm" onclick="agendarPara('${c.id}');closeModal('modal-detalhe-cliente')">📅 Agendar</button>
+      <button class="btn btn-blue btn-sm" onclick="gerarRecibo('${c.id}')">🧾 Recibo</button>
+    </div>`;
+
+  // Histórico tab
+  const hist = S.agendamentos.filter(a=>a.clienteId===id).sort((a,b)=>b.data<a.data?1:-1);
+  document.getElementById('dt-historico').innerHTML = hist.length ? hist.map(a=>`
+    <div class="hist-item">
+      <div class="hist-date">${fmtDate(a.data)} às ${a.hora} · ${a.duracao}min</div>
+      <div class="hist-desc">${a.status==='concluido'?'✅':(a.status==='cancelado'?'❌':'📅')} ${a.status.charAt(0).toUpperCase()+a.status.slice(1)} · ${fmtMoney(a.valor)}</div>
+      ${a.obs?`<div style="font-size:.76rem;color:var(--text3);">📝 ${a.obs}</div>`:''}
+    </div>`).join('') : '<div class="empty"><span class="eico">📭</span><p>Sem histórico</p></div>';
+
+  // Saúde tab
+  const vacs = S.vacinas.filter(v=>v.clienteId===id);
+  document.getElementById('dt-saude').innerHTML = `
+    <button class="btn btn-primary btn-sm" style="margin-bottom:12px;" onclick="abrirModalVacina('${id}')">+ Adicionar Vacina/Saúde</button>
+    ${vacs.length ? vacs.map(v=>{
+      const hoje = new Date();
+      const prox = v.proxima ? new Date(v.proxima) : null;
+      const diff = prox ? (prox-hoje)/86400000 : null;
+      const status = !prox ? 'pend' : diff < 0 ? 'exp' : 'ok';
+      return `<div class="vacc-item">
+        <div class="vacc-status vacc-${status}"></div>
+        <div style="flex:1;">
+          <div style="font-weight:800;font-size:.88rem;">💉 ${v.nome}</div>
+          <div style="font-size:.76rem;color:var(--text3);">Aplicação: ${fmtDate(v.data)} · Próxima: ${fmtDate(v.proxima)||'—'}</div>
+          ${v.vet?`<div style="font-size:.73rem;color:var(--text3);">🏥 ${v.vet}</div>`:''}
+        </div>
+        <button class="btn btn-danger btn-xs" onclick="excluirVacina('${v.id}')">🗑️</button>
+      </div>`;
+    }).join('') : '<div class="empty"><span class="eico">💉</span><p>Nenhum registro de saúde</p></div>'}`;
+
+  // Plano tab
+  const planos = [
+    {id:'avulso',  name:'Avulso',  price:0,   walks:0,  features:['Pagamento por passeio','Sem compromisso mensal','Flexibilidade total']},
+    {id:'basico',  name:'Básico',  price:399, walks:8,  features:['8 passeios/mês','Desconto 10%','Relatório mensal']},
+    {id:'premium', name:'Premium', price:699, walks:16, features:['16 passeios/mês','Desconto 20%','Fotos durante passeio','Prioridade agenda']},
+    {id:'vip',     name:'VIP',     price:999, walks:22, features:['22 passeios/mês','Desconto 30%','Walker dedicado','Relatório semanal','Suporte prioritário']},
+  ];
+  document.getElementById('dt-plano').innerHTML = planos.map(p=>`
+    <div class="plan-card ${c.plano===p.id?'selected':''}" onclick="mudarPlano('${id}','${p.id}')">
+      <div class="plan-header">
+        <div class="plan-name">${p.id==='avulso'?'📦':p.id==='basico'?'🥉':p.id==='premium'?'🥈':'🥇'} ${p.name}</div>
+        <div class="plan-price">${p.price?fmtMoney(p.price)+'/mês':'Por passeio'}</div>
+      </div>
+      <ul class="plan-features">${p.features.map(f=>`<li>✅ ${f}</li>`).join('')}</ul>
+      ${c.plano===p.id?'<div class="badge bg-green" style="margin-top:8px;">✅ Plano Atual</div>':''}
+    </div>`).join('');
+
+  showDetailTab('info', document.querySelector('#modal-detalhe-cliente .detail-tab'));
+  openModal('modal-detalhe-cliente');
+}
+
+function showDetailTab(tab, el){
+  document.querySelectorAll('.detail-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.detail-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('dt-'+tab).classList.add('active');
+  if(el) el.classList.add('active');
+}
+
+function mudarPlano(clienteId, plano){
+  const c = S.clientes.find(x=>x.id===clienteId);
+  if(c){ c.plano=plano; save(); verDetalhe(clienteId); toast('📦 Plano atualizado!'); }
+}
+
+// ══════════════════════════════════════════════
+//  VACINAS
+// ══════════════════════════════════════════════
+function abrirModalVacina(clienteId){
+  const c = S.clientes.find(x=>x.id===clienteId);
+  document.getElementById('vacina-modal-title').textContent = `💉 Saúde de ${c?.cao||'—'}`;
+  document.getElementById('vac-cliente-id').value = clienteId;
+  document.getElementById('vac-data').value = todayStr();
+  openModal('modal-vacina');
+}
+function salvarVacina(){
+  const nome = document.getElementById('vac-nome').value.trim();
+  if(!nome){ toast('⚠️ Informe o nome da vacina!'); return; }
+  S.vacinas.push({
+    id:uid(), clienteId:document.getElementById('vac-cliente-id').value,
+    nome, data:document.getElementById('vac-data').value,
+    proxima:document.getElementById('vac-prox').value,
+    vet:document.getElementById('vac-vet').value,
+    obs:document.getElementById('vac-obs').value
+  });
+  save(); closeModal('modal-vacina');
+  ['vac-nome','vac-data','vac-prox','vac-vet','vac-obs'].forEach(id=>document.getElementById(id).value='');
+  verDetalhe(detailClienteId); buildNotifs(); toast('💉 Registro de saúde salvo!');
+}
+function excluirVacina(id){
+  S.vacinas = S.vacinas.filter(v=>v.id!==id);
+  save(); verDetalhe(detailClienteId); toast('🗑️ Removido');
+}
+
+// ══════════════════════════════════════════════
+//  AGENDA
+// ══════════════════════════════════════════════
+let agFiltro = 'todos';
+function setAgFiltro(f, el){
+  agFiltro = f;
+  document.querySelectorAll('#page-agenda .tab-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderAgenda();
+}
+
+function salvarAgendamento(){
+  const cid  = document.getElementById('ag-cliente').value;
+  const data = document.getElementById('ag-data').value;
+  const hora = document.getElementById('ag-hora').value;
+  if(!cid||!data||!hora){ toast('⚠️ Selecione cliente, data e horário!'); return; }
+  const cli = S.clientes.find(c=>c.id===cid);
+  const walkerId = document.getElementById('ag-walker').value;
+  const rotaId   = document.getElementById('ag-rota').value;
+  S.agendamentos.push({
+    id:uid(), clienteId:cid, cao:cli?.cao, dono:cli?.nome,
+    valor:cli?.valor||0, porte:cli?.porte,
+    data, hora,
+    duracao:document.getElementById('ag-duracao').value,
+    status:document.getElementById('ag-status').value,
+    walkerId, rotaId,
+    obs:document.getElementById('ag-obs').value
+  });
+  save(); closeModal('modal-agenda');
+  renderAgenda(); renderDashboard(); updateHeader(); buildNotifs(); checkAchievements();
+  toast('📅 Passeio agendado!');
+}
+
+function renderAgenda(){
+  const today = todayStr();
+  let list = [...S.agendamentos].sort((a,b)=>a.data+a.hora < b.data+b.hora ? 1 : -1);
+  if(agFiltro==='hoje')    list = list.filter(a=>a.data===today);
+  if(agFiltro==='semana'){
+    const fim = new Date(); fim.setDate(fim.getDate()+7);
+    const fimStr = fim.toISOString().split('T')[0];
+    list = list.filter(a=>a.data>=today&&a.data<=fimStr);
+  }
+  if(agFiltro==='pendente') list = list.filter(a=>a.status==='agendado');
+  if(agFiltro==='concluido') list = list.filter(a=>a.status==='concluido');
+  const el = document.getElementById('lista-agenda');
+  if(!list.length){ el.innerHTML='<div class="empty"><span class="eico">📭</span><p>Nenhum passeio encontrado</p></div>'; return; }
+  const bMap = {agendado:'bg-blue',concluido:'bg-green',cancelado:'bg-red'};
+  const lMap = {agendado:'📅 Agendado',concluido:'✅ Concluído',cancelado:'❌ Cancelado'};
+  el.innerHTML = list.map(a=>{
+    const walker = S.walkers.find(w=>w.id===a.walkerId);
+    const rota   = S.rotas.find(r=>r.id===a.rotaId);
+    return `<div class="sched-item status-${a.status}">
+      <div class="sched-time">${a.hora}<br><span style="font-size:.65rem;color:var(--text3);">${fmtDate(a.data)}</span></div>
+      <div class="sched-info">
+        <div class="sched-name">${porteIco(a.porte)} ${a.cao}</div>
+        <div class="sched-sub">👤 ${a.dono} · ⏱️ ${a.duracao}min · ${fmtMoney(a.valor)}</div>
+        ${walker?`<div class="sched-sub">🦮 ${walker.nome}</div>`:''}
+        ${rota?`<div class="sched-sub">🛤️ ${rota.nome}</div>`:''}
+        ${a.obs?`<div class="sched-sub">📝 ${a.obs}</div>`:''}
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;">
+        <span class="badge ${bMap[a.status]}">${lMap[a.status]}</span>
+        <div style="display:flex;gap:4px;">
+          ${a.status==='agendado'?`<button class="btn btn-success btn-xs" onclick="concluirPasseio('${a.id}')">✅</button>`:''}
+          <button class="btn btn-blue btn-xs" onclick="gerarReciboAgendamento('${a.id}')">🧾</button>
+          <button class="btn btn-danger btn-xs" onclick="excluirAgendamento('${a.id}')">🗑️</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function concluirPasseio(id){
+  const a = S.agendamentos.find(x=>x.id===id);
+  if(!a) return;
+  a.status = 'concluido';
+  S.transacoes.push({id:uid(),tipo:'receita',desc:`Passeio – ${a.cao}`,val:a.valor,data:a.data,cat:'passeio',obs:''});
+  save(); renderAgenda(); renderFinanceiro(); updateHeader(); checkAchievements(); buildNotifs();
+  toast('✅ Passeio concluído! Receita lançada automaticamente 💰');
+}
+
+function excluirAgendamento(id){
+  if(!confirm('Excluir este agendamento?')) return;
+  S.agendamentos = S.agendamentos.filter(a=>a.id!==id);
+  save(); renderAgenda(); renderDashboard(); updateHeader(); buildNotifs();
+  toast('🗑️ Agendamento removido');
+}
+
+// ══════════════════════════════════════════════
+//  FINANCEIRO
+// ══════════════════════════════════════════════
+let finFiltro = 'todos';
+function setFinFiltro(f, el){
+  finFiltro = f;
+  document.querySelectorAll('#page-financeiro .tab-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderFinanceiro();
+}
+
+function salvarTransacao(){
+  const desc = document.getElementById('tr-desc').value.trim();
+  const val  = document.getElementById('tr-val').value;
+  if(!desc||!val){ toast('⚠️ Preencha descrição e valor!'); return; }
+  S.transacoes.push({
+    id:uid(), tipo:document.getElementById('tr-tipo').value,
+    desc, val:Number(val), data:document.getElementById('tr-data').value,
+    cat:document.getElementById('tr-cat').value,
+    obs:document.getElementById('tr-obs').value
+  });
+  save(); closeModal('modal-transacao');
+  ['tr-desc','tr-val','tr-obs'].forEach(id=>document.getElementById(id).value='');
+  renderFinanceiro(); updateHeader(); checkAchievements();
+  toast('💰 Lançamento registrado!');
+}
+
+function renderFinanceiro(){
+  const mes = new Date().toISOString().slice(0,7);
+  const mes_data = S.transacoes.filter(t=>t.data?.startsWith(mes));
+  const rec = mes_data.filter(t=>t.tipo==='receita').reduce((s,t)=>s+Number(t.val),0);
+  const des = mes_data.filter(t=>t.tipo==='despesa').reduce((s,t)=>s+Number(t.val),0);
+  document.getElementById('fin-rec').textContent = fmtMoney(rec);
+  document.getElementById('fin-des').textContent = fmtMoney(des);
+  const lucroEl = document.getElementById('fin-luc');
+  const lucro = rec-des;
+  lucroEl.textContent = fmtMoney(lucro);
+  lucroEl.style.color = lucro>=0?'#7A4500':'var(--red)';
+
+  // chart
+  renderFinChart();
+
+  // list
+  let list = [...S.transacoes].sort((a,b)=>b.data<a.data?1:-1);
+  if(finFiltro!=='todos') list = list.filter(t=>t.tipo===finFiltro);
+  const el = document.getElementById('lista-transacoes');
+  if(!list.length){ el.innerHTML='<div class="empty"><span class="eico">💸</span><p>Nenhum lançamento</p></div>'; return; }
+  const catIco={passeio:'🦮',mensalidade:'📆',material:'🎽',transporte:'🚗',marketing:'📣',outro:'📦'};
+  el.innerHTML = list.map(t=>`
+    <div class="trans-item">
+      <div>
+        <div class="trans-desc">${catIco[t.cat]||'📦'} ${t.desc}</div>
+        <div class="trans-date">${fmtDate(t.data)}${t.obs?' · '+t.obs:''}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="trans-val ${t.tipo==='receita'?'pos':'neg'}">${t.tipo==='receita'?'+':'-'}${fmtMoney(t.val)}</span>
+        <button class="btn btn-danger btn-xs" onclick="excluirTransacao('${t.id}')">🗑️</button>
+      </div>
+    </div>`).join('');
+}
+
+function excluirTransacao(id){
+  if(!confirm('Excluir este lançamento?')) return;
+  S.transacoes = S.transacoes.filter(t=>t.id!==id);
+  save(); renderFinanceiro(); updateHeader(); toast('🗑️ Removido');
+}
+
+function renderFinChart(){
+  const months = [];
+  for(let i=5;i>=0;i--){
+    const d=new Date(); d.setMonth(d.getMonth()-i);
+    months.push(d.toISOString().slice(0,7));
+  }
+  const maxVal = Math.max(...months.map(m=>
+    S.transacoes.filter(t=>t.tipo==='receita'&&t.data?.startsWith(m)).reduce((s,t)=>s+Number(t.val),0)
+  ), 1);
+  const names = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  document.getElementById('fin-chart').innerHTML = months.map(m=>{
+    const v = S.transacoes.filter(t=>t.tipo==='receita'&&t.data?.startsWith(m)).reduce((s,t)=>s+Number(t.val),0);
+    const pct = (v/maxVal*100).toFixed(1);
+    const [y,mo] = m.split('-');
+    return `<div class="chart-bar-row">
+      <div class="chart-bar-label">${names[parseInt(mo)-1]}</div>
+      <div class="chart-bar-outer"><div class="chart-bar-inner" style="width:${pct}%;background:linear-gradient(90deg,var(--amber),var(--green));"></div></div>
+      <div class="chart-bar-val">${fmtMoney(v)}</div>
+    </div>`;
+  }).join('');
+}
+
+function exportarCSV(){
+  if(!S.transacoes.length){ toast('⚠️ Nenhum dado para exportar'); return; }
+  const header = 'Tipo,Descrição,Valor,Data,Categoria\n';
+  const rows = S.transacoes.map(t=>`${t.tipo},"${t.desc}",${t.val},${t.data},${t.cat}`).join('\n');
+  const blob = new Blob(['\uFEFF'+header+rows],{type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `dogwalker_financeiro_${todayStr()}.csv`;
+  a.click();
+  toast('📥 CSV exportado com sucesso!');
+}
+
+// ══════════════════════════════════════════════
+//  RECIBO
+// ══════════════════════════════════════════════
+function gerarRecibo(clienteId){
+  const c = S.clientes.find(x=>x.id===clienteId);
+  if(!c) return;
+  const walks = S.agendamentos.filter(a=>a.clienteId===clienteId&&a.status==='concluido');
+  const total = walks.reduce((s,a)=>s+Number(a.valor||0),0);
+  const mes = new Date().toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+  document.getElementById('recibo-content').innerHTML = `
+    <div style="border:2px solid var(--amber);border-radius:12px;padding:20px;">
+      <div style="text-align:center;margin-bottom:16px;">
+        <div style="font-size:2rem;">🐾</div>
+        <div style="font-family:'Baloo 2',cursive;font-size:1.3rem;font-weight:700;">Dog Walker Pro</div>
+        <div style="font-size:.8rem;color:var(--text3);">Comprovante de Serviços</div>
+      </div>
+      <hr style="border-color:var(--border);margin:12px 0;"/>
+      <div style="margin-bottom:10px;"><b>Cliente:</b> ${c.nome}</div>
+      <div style="margin-bottom:10px;"><b>Cão:</b> ${c.cao} (${c.raca||c.porte})</div>
+      <div style="margin-bottom:10px;"><b>Período:</b> ${mes}</div>
+      <div style="margin-bottom:10px;"><b>Plano:</b> ${planoLabel(c.plano)}</div>
+      <hr style="border-color:var(--border);margin:12px 0;"/>
+      <div style="margin-bottom:8px;font-weight:800;">Passeios Realizados:</div>
+      ${walks.slice(0,10).map(w=>`<div style="display:flex;justify-content:space-between;font-size:.85rem;padding:4px 0;border-bottom:1px dashed var(--border);">
+        <span>🦮 ${fmtDate(w.data)} às ${w.hora} (${w.duracao}min)</span>
+        <span>${fmtMoney(w.valor)}</span>
+      </div>`).join('')}
+      <div style="display:flex;justify-content:space-between;font-weight:900;font-size:1rem;margin-top:12px;padding-top:10px;border-top:2px solid var(--amber);">
+        <span>Total (${walks.length} passeios)</span>
+        <span style="color:var(--green-d);">${fmtMoney(total)}</span>
+      </div>
+      <div style="text-align:center;margin-top:16px;font-size:.75rem;color:var(--text3);">
+        Emitido em ${new Date().toLocaleDateString('pt-BR')} · Dog Walker Pro
+      </div>
+    </div>`;
+  closeModal('modal-detalhe-cliente');
+  openModal('modal-recibo');
+}
+
+function gerarReciboAgendamento(id){
+  const a = S.agendamentos.find(x=>x.id===id);
+  if(!a) return;
+  document.getElementById('recibo-content').innerHTML = `
+    <div style="border:2px solid var(--amber);border-radius:12px;padding:20px;">
+      <div style="text-align:center;margin-bottom:16px;">
+        <div style="font-size:2rem;">🐾</div>
+        <div style="font-family:'Baloo 2',cursive;font-size:1.3rem;font-weight:700;">Dog Walker Pro</div>
+        <div style="font-size:.8rem;color:var(--text3);">Comprovante de Passeio</div>
+      </div>
+      <hr style="border-color:var(--border);margin:12px 0;"/>
+      <div style="font-size:.9rem;display:flex;flex-direction:column;gap:8px;">
+        <div><b>🐶 Cão:</b> ${a.cao}</div>
+        <div><b>👤 Tutor:</b> ${a.dono}</div>
+        <div><b>📅 Data:</b> ${fmtDate(a.data)} às ${a.hora}</div>
+        <div><b>⏱️ Duração:</b> ${a.duracao} minutos</div>
+        <div><b>Status:</b> ${a.status}</div>
+      </div>
+      <hr style="border-color:var(--border);margin:12px 0;"/>
+      <div style="display:flex;justify-content:space-between;font-weight:900;font-size:1.1rem;">
+        <span>Valor</span><span style="color:var(--green-d);">${fmtMoney(a.valor)}</span>
+      </div>
+      <div style="text-align:center;margin-top:14px;font-size:.72rem;color:var(--text3);">Emitido em ${new Date().toLocaleDateString('pt-BR')}</div>
+    </div>`;
+  openModal('modal-recibo');
+}
+
+function imprimirRecibo(){ window.print(); }
+
+// ══════════════════════════════════════════════
+//  EQUIPE
+// ══════════════════════════════════════════════
+function salvarWalker(){
+  const nome = document.getElementById('wk-nome').value.trim();
+  if(!nome){ toast('⚠️ Informe o nome do walker!'); return; }
+  S.walkers.push({
+    id:uid(), nome, tel:document.getElementById('wk-tel').value,
+    funcao:document.getElementById('wk-funcao').value,
+    comissao:document.getElementById('wk-comissao').value||40,
+    status:document.getElementById('wk-status').value,
+    regioes:document.getElementById('wk-regioes').value,
+    criado:todayStr()
+  });
+  save(); closeModal('modal-walker');
+  ['wk-nome','wk-tel','wk-comissao','wk-regioes'].forEach(id=>document.getElementById(id).value='');
+  renderEquipe(); checkAchievements(); toast('👤 Walker cadastrado!');
+}
+
+function renderEquipe(){
+  const total   = S.walkers.length;
+  const ativos  = S.walkers.filter(w=>w.status==='ativo').length;
+  const passeios= S.agendamentos.filter(a=>a.walkerId&&a.status==='concluido').length;
+  document.getElementById('eq-total').textContent   = total;
+  document.getElementById('eq-ativos').textContent  = ativos;
+  document.getElementById('eq-passeios').textContent= passeios;
+  const el = document.getElementById('lista-walkers');
+  if(!S.walkers.length){ el.innerHTML='<div class="empty"><span class="eico">👥</span><p>Nenhum walker cadastrado</p></div>'; return; }
+  el.innerHTML = S.walkers.map(w=>{
+    const walks = S.agendamentos.filter(a=>a.walkerId===w.id&&a.status==='concluido').length;
+    const receita = S.agendamentos.filter(a=>a.walkerId===w.id&&a.status==='concluido').reduce((s,a)=>s+Number(a.valor||0),0);
+    return `<div class="walker-card">
+      <div class="walker-avatar">${funcaoIco(w.funcao)}</div>
+      <div class="walker-info">
+        <div class="walker-name">${w.nome}</div>
+        <div class="walker-role">${w.funcao.charAt(0).toUpperCase()+w.funcao.slice(1)} · ${w.comissao}% comissão</div>
+        <div class="walker-stats">
+          <span class="wstat">🦮 ${walks} passeios</span>
+          <span class="wstat">💰 ${fmtMoney(receita*Number(w.comissao)/100)}</span>
+          <span class="wstat badge ${w.status==='ativo'?'bg-green':'bg-red'}">${w.status==='ativo'?'✅ Ativo':'❌ Inativo'}</span>
+        </div>
+        ${w.regioes?`<div style="font-size:.75rem;color:var(--text3);margin-top:4px;">📍 ${w.regioes}</div>`:''}
+      </div>
+      <button class="btn btn-danger btn-sm" onclick="excluirWalker('${w.id}')">🗑️</button>
+    </div>`;
+  }).join('');
+}
+
+function excluirWalker(id){
+  if(!confirm('Excluir este walker?')) return;
+  S.walkers = S.walkers.filter(w=>w.id!==id);
+  save(); renderEquipe(); toast('🗑️ Walker removido');
+}
+
+// ══════════════════════════════════════════════
+//  AVALIAÇÕES
+// ══════════════════════════════════════════════
+let starVal = 5;
+function setStar(n){
+  starVal = n;
+  document.getElementById('av-nota').value = n;
+  document.querySelectorAll('#star-picker .star').forEach((s,i)=>{
+    s.classList.toggle('inactive', i>=n);
+  });
+}
+
+function salvarAvaliacao(){
+  const cid = document.getElementById('av-cliente').value;
+  const nota= parseInt(document.getElementById('av-nota').value)||5;
+  const com = document.getElementById('av-comentario').value.trim();
+  if(!cid){ toast('⚠️ Selecione o cliente!'); return; }
+  const cli = S.clientes.find(c=>c.id===cid);
+  S.avaliacoes.push({id:uid(), clienteId:cid, nome:cli?.nome, cao:cli?.cao, nota, comentario:com, data:document.getElementById('av-data').value});
+  save(); closeModal('modal-avaliacao');
+  ['av-comentario'].forEach(id=>document.getElementById(id).value='');
+  renderAvaliacoes(); checkAchievements(); toast(`⭐ Avaliação ${nota}/5 registrada!`);
+}
+
+function renderAvaliacoes(){
+  const el = document.getElementById('lista-avaliacoes');
+  const med = S.avaliacoes.length ? (S.avaliacoes.reduce((s,a)=>s+a.nota,0)/S.avaliacoes.length).toFixed(1) : null;
+  document.getElementById('media-nota').textContent = med ? `${med} ⭐` : '—';
+  document.getElementById('media-stars').innerHTML = med ? '⭐'.repeat(Math.round(Number(med))) : '';
+  if(!S.avaliacoes.length){ el.innerHTML='<div class="empty"><span class="eico">⭐</span><p>Nenhuma avaliação ainda</p></div>'; return; }
+  el.innerHTML = [...S.avaliacoes].sort((a,b)=>b.data<a.data?1:-1).map(a=>`
+    <div class="review-item">
+      <div class="review-header">
+        <div>
+          <div class="review-name">🐶 ${a.cao||'—'} · ${a.nome||'—'}</div>
+          <div class="review-date">${fmtDate(a.data)}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="font-size:1.1rem;">${'⭐'.repeat(a.nota)}${'☆'.repeat(5-a.nota)}</span>
+          <button class="btn btn-danger btn-xs" onclick="excluirAvaliacao('${a.id}')">🗑️</button>
+        </div>
+      </div>
+      ${a.comentario?`<div class="review-text">"${a.comentario}"</div>`:''}
+    </div>`).join('');
+}
+
+function excluirAvaliacao(id){
+  S.avaliacoes = S.avaliacoes.filter(a=>a.id!==id);
+  save(); renderAvaliacoes(); toast('🗑️ Removido');
+}
+
+// ══════════════════════════════════════════════
+//  ROTAS
+// ══════════════════════════════════════════════
+function salvarRota(){
+  const nome = document.getElementById('rt-nome').value.trim();
+  if(!nome){ toast('⚠️ Informe o nome da rota!'); return; }
+  S.rotas.push({
+    id:uid(), nome, bairro:document.getElementById('rt-bairro').value,
+    km:document.getElementById('rt-km').value,
+    dur:document.getElementById('rt-dur').value,
+    cor:document.getElementById('rt-cor').value,
+    pontos:document.getElementById('rt-pontos').value
+  });
+  save(); closeModal('modal-rota');
+  ['rt-nome','rt-bairro','rt-km','rt-dur','rt-pontos'].forEach(id=>document.getElementById(id).value='');
+  renderRotas(); checkAchievements(); toast('🛤️ Rota salva!');
+}
+
+function renderRotas(){
+  const el = document.getElementById('lista-rotas');
+  if(!S.rotas.length){ el.innerHTML='<div class="empty"><span class="eico">🛤️</span><p>Nenhuma rota cadastrada</p></div>'; return; }
+  el.innerHTML = S.rotas.map(r=>`
+    <div class="route-card">
+      <div class="route-dot" style="background:${r.cor};box-shadow:0 0 8px ${r.cor}88;"></div>
+      <div style="flex:1;">
+        <div style="font-weight:800;">${r.nome}</div>
+        <div style="font-size:.78rem;color:var(--text3);">📍 ${r.bairro||'—'} · 📏 ${r.km||'?'} km · ⏱️ ${r.dur||'?'} min</div>
+        ${r.pontos?`<div style="font-size:.73rem;color:var(--text3);margin-top:2px;">🏁 ${r.pontos}</div>`:''}
+      </div>
+      <button class="btn btn-danger btn-sm" onclick="excluirRota('${r.id}')">🗑️</button>
+    </div>`).join('');
+}
+
+function excluirRota(id){
+  if(!confirm('Excluir esta rota?')) return;
+  S.rotas = S.rotas.filter(r=>r.id!==id);
+  save(); renderRotas(); toast('🗑️ Rota removida');
+}
+
+// ══════════════════════════════════════════════
+//  DASHBOARD
+// ══════════════════════════════════════════════
+function renderDashboard(){
+  const today = todayStr();
+  const conc  = S.agendamentos.filter(a=>a.status==='concluido').length;
+  const mes   = new Date().toISOString().slice(0,7);
+  const recMes= S.transacoes.filter(t=>t.tipo==='receita'&&t.data?.startsWith(mes)).reduce((s,t)=>s+Number(t.val),0);
+  const hj    = S.agendamentos.filter(a=>a.data===today).length;
+
+  document.getElementById('d-clientes').textContent = S.clientes.length;
+  document.getElementById('d-passeios').textContent = conc;
+  document.getElementById('d-hoje').textContent     = hj;
+  document.getElementById('d-receita').textContent  = fmtMoney(recMes).replace('R$ ','R$');
+  document.getElementById('today-date').textContent = new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
+
+  // today list
+  const hjList = S.agendamentos.filter(a=>a.data===today).sort((a,b)=>a.hora<b.hora?-1:1);
+  const todayEl = document.getElementById('today-list');
+  todayEl.innerHTML = hjList.length ? hjList.map(a=>{
+    const bMap={agendado:'bg-blue',concluido:'bg-green',cancelado:'bg-red'};
+    return `<div class="sched-item status-${a.status}">
+      <div class="sched-time">${a.hora}</div>
+      <div class="sched-info"><div class="sched-name">${porteIco(a.porte)} ${a.cao}</div><div class="sched-sub">👤 ${a.dono} · ⏱️ ${a.duracao}min</div></div>
+      <span class="badge ${bMap[a.status]}">${a.status}</span>
+    </div>`;
+  }).join('') : '<div class="empty"><span class="eico">😴</span><p>Nenhum passeio hoje</p></div>';
+
+  // próximos
+  const prox = S.agendamentos.filter(a=>a.data>today&&a.status==='agendado').sort((a,b)=>a.data+a.hora<b.data+b.hora?-1:1).slice(0,4);
+  const proxEl = document.getElementById('proximos-list');
+  proxEl.innerHTML = prox.length ? prox.map(a=>`
+    <div class="sched-item">
+      <div class="sched-time">${a.hora}<br><span style="font-size:.65rem;">${fmtDate(a.data)}</span></div>
+      <div class="sched-info"><div class="sched-name">${porteIco(a.porte)} ${a.cao}</div><div class="sched-sub">👤 ${a.dono}</div></div>
+      <span class="badge bg-blue">📅</span>
+    </div>`).join('') : '<div class="empty"><span class="eico">📭</span><p>Sem próximos agendamentos</p></div>';
+
+  // mini chart
+  const months=[];
+  for(let i=5;i>=0;i--){ const d=new Date(); d.setMonth(d.getMonth()-i); months.push(d.toISOString().slice(0,7)); }
+  const maxV = Math.max(...months.map(m=>S.transacoes.filter(t=>t.tipo==='receita'&&t.data?.startsWith(m)).reduce((s,t)=>s+Number(t.val),0)),1);
+  const names=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  document.getElementById('dash-chart').innerHTML = months.map(m=>{
+    const v=S.transacoes.filter(t=>t.tipo==='receita'&&t.data?.startsWith(m)).reduce((s,t)=>s+Number(t.val),0);
+    const pct=(v/maxV*100).toFixed(1);
+    const [,mo]=m.split('-');
+    return `<div class="chart-bar-row">
+      <div class="chart-bar-label">${names[parseInt(mo)-1]}</div>
+      <div class="chart-bar-outer"><div class="chart-bar-inner" style="width:${pct}%;background:linear-gradient(90deg,var(--amber),var(--amber-d));"></div></div>
+      <div class="chart-bar-val">${fmtMoney(v)}</div>
+    </div>`;
+  }).join('');
+
+  updateXPBar();
+}
+
+// ══════════════════════════════════════════════
+//  HEADER UPDATE
+// ══════════════════════════════════════════════
+function updateHeader(){
+  document.getElementById('h-dogs').textContent  = S.clientes.length;
+  document.getElementById('h-today').textContent = S.agendamentos.filter(a=>a.data===todayStr()).length;
+  const mes = new Date().toISOString().slice(0,7);
+  const rec = S.transacoes.filter(t=>t.tipo==='receita'&&t.data?.startsWith(mes)).reduce((s,t)=>s+Number(t.val),0);
+  document.getElementById('h-mes').textContent   = 'R$'+Math.round(rec);
+}
+
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
+renderDashboard();
+updateHeader();
+buildNotifs();
+updateXPBar();
+</script>
+</body>
+</html>
